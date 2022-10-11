@@ -1,3 +1,8 @@
+import com.github.kotlintelegrambot.bot
+import com.github.kotlintelegrambot.dispatch
+import com.github.kotlintelegrambot.dispatcher.command
+import com.github.kotlintelegrambot.dispatcher.text
+import com.github.kotlintelegrambot.entities.ChatId
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -10,6 +15,15 @@ suspend fun main(){
     val energy:List<EnergyFields> = requestAPI()
     for (e in energy.sortedBy { it.hour }){
         println(e)
+    }
+
+    val bot = bot {
+        token = "5610409121:AAE0u6lXHCgkSlAwQnifLs62IYXcm_9sIk8"
+        dispatch{
+            command("start"){
+                bot.sendMessage(ChatId.fromId(message.chat.id), text = "Vols saber el preu del Mw/h?")
+            }
+        }
     }
 }
 

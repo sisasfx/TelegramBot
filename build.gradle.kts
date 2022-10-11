@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven (url =  "https://jitpack.io")
 }
 
 dependencies {
@@ -18,6 +19,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.1.0")
     implementation("io.ktor:ktor-client-content-negotiation:2.1.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.1.0")
+    implementation ("io.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.0.7")
 }
 
 tasks.test {
