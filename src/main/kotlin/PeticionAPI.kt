@@ -7,6 +7,15 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 suspend fun main(){
+    val energy:List<EnergyFields> = requestAPI()
+    for (e in energy.sortedBy { it.hour }){
+        println(e)
+    }
+}
+
+
+
+suspend fun requestAPI(): List<EnergyFields> {
     val client = HttpClient(CIO){
         install(ContentNegotiation){
             json(Json{
@@ -14,11 +23,6 @@ suspend fun main(){
             })
         }
     }
-
-     val energy :List<EnergyFields>  =
-         client.get("https://api.preciodelaluz.org/v1/prices/cheapests?zone=PCB&n=8").body()
-    for (e in energy){
-        println(e)
-    }
+    return client.get("https://api.preciodelaluz.org/v1/prices/cheapests?zone=PCB&n=24").body()
 
 }
