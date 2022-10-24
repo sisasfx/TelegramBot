@@ -2,12 +2,6 @@ import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.command
 import com.github.kotlintelegrambot.entities.ChatId
-import com.google.gson.Gson
-import java.nio.file.StandardOpenOption
-import kotlin.io.path.Path
-import kotlin.io.path.createFile
-import kotlin.io.path.writeText
-
 suspend fun main(){
     val petition = ApiPetition()
     val user = UserOptions()
@@ -29,6 +23,8 @@ suspend fun main(){
                         "Escriu /saveInfo")
                 bot.sendMessage(ChatId.fromId(message.chat.id), text = "Vols guardar la informació amb JSON? " +
                         "Escriu /saveJson")
+                bot.sendMessage(ChatId.fromId(message.chat.id), text = "Vols llegir la informació del documents JSON? "+
+                        "Escriu /read")
 
             }
             command("maxPrice"){
@@ -47,6 +43,20 @@ suspend fun main(){
             command("saveJson"){
                 user.saveInfoJson(sortedList)
                 bot.sendMessage(ChatId.fromId(message.chat.id), text = "Informació guardada en JSON")
+            }
+            command("saveMaxPrice"){
+                user.saveMaxPriceJson(priceSortedList)
+                bot.sendMessage(ChatId.fromId(message.chat.id), text = "Maxim preu del dia guardat")
+            }
+            command("saveMinPrice"){
+                user.saveMinPriceJson(priceSortedList)
+                bot.sendMessage(ChatId.fromId(message.chat.id), text = "Minim preu del dia guardat")
+            }
+            command("read"){
+                if(!user.testToPassBeforeReadDoc()){
+                    bot.sendMessage(ChatId.fromId(message.chat.id), text = "Ups! crec que no tinc el fitxer creat")
+                }
+                bot.sendMessage(ChatId.fromId(message.chat.id), text = user.readDocuments())
             }
         }
     }
