@@ -11,7 +11,7 @@
         <option name="gradleJvm" value="corretto-17" />
         <option name="modules">
           <set>
-            <option value="/dades/MiquelOrtiz/M06" />
+            <option value="$PROJECT_DIR$" />
           </set>
         </option>
       </GradleProjectSettings>
